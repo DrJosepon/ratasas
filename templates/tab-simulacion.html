@@ -1,0 +1,22 @@
+<ion-view view-title="Simulacion">
+<ion-nav-title>      
+Simulacion
+</ion-nav-title>
+  <ion-content>
+    <ion-list>
+	    <label class="item item-input">
+	    <input type="date" placeholder="Fecha de Inicio" ng-model="simulacion.fecha">
+	  </label>
+	  <label class="item item-input">
+	    <input type="number" placeholder="Plazo" ng-model="simulacion.plazo">
+	  </label>
+	  <label class="item item-input">
+	    <input type="number" placeholder="Monto" ng-model="simulacion.monto">
+	  </label>
+	<button class="button button-block button-positive" ng-click="Simular(simulacion)">
+              Ingresar
+            </button>
+            
+    </ion-list>
+  </ion-content>
+</ion-view>

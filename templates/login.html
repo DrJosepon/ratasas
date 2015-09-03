@@ -1,0 +1,29 @@
+ <ion-view view-title="Sistema RATASAS">
+      	 
+        <ion-content>
+        <div class="col"><center><img src="http://www.sbs.gob.pe/images/0/logo.png"/></center></div>
+          <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Usuario</span>
+              <input type="text" ng-model="user.username" >
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Clave</span>
+              <input type="password" ng-model="user.password" >
+            </label>
+          </div>
+          <div class="padding">
+            <button class="button button-block button-positive" ng-click="signIn(user)">
+              Ingresar
+            </button>
+            <p class="text-center">   
+            </p>
+          </div>
+          
+        </ion-content>
+       
+       <!--<ion-footer-bar align-title="left" class="bar-positive" ng-if="showFooter">
+  <h1 class="title">Universidad Privada de Tacna © 2015 </h1>
+</ion-footer-bar>
+      -->
+      </ion-view>
