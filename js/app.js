@@ -6,7 +6,7 @@ localStorage['serviceURL'] = "http://localhost:8008/ratasasserver/";
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','chart.js'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -96,7 +96,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'tab-home': {
         templateUrl: 'templates/tab-tasaspa.html',
-        controller: 'DashCtrl'
+        controller: 'CargarTasasPA'
+      }
+    }
+  })
+
+   .state('tab.evotasaspa', {
+    url: '/evotasaspa',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/tab-evotasaspa.html',
+        controller: 'LGraphCtrl'
       }
     }
   })
@@ -107,6 +117,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       'tab-home': {
         templateUrl: 'templates/tab-simulacion.html',
         controller: 'DashCtrl'
+      }
+    }
+  })
+  
+   .state('tab.gsimulacion', {
+    url: '/gsimulacion',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/tab-gsimulacion.html',
+        controller: 'BGraphCtrl'
       }
     }
   })

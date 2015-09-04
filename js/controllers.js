@@ -133,10 +133,25 @@ angular.module('starter.controllers', [])
 	var identi = localStorage['identi'];
 	$('#cargaDEntidad').show();
 	
+	var textotas="";
+	var textosucu="";
+	
 	$.getJSON(serviceURL + 'gettasas.php?identi=' + identi + '&format=json', function(data) {
 		tasas = data.items;
 		$.each(tasas, function(index, tasa) {
-			$('#DEntidad').append('<p>'+tasa.post.descripcioncon+' - '+ tasa.post.tasa +'<p><br>');
+			$('#DEntidad').append(' ');
+			textotas = '<p>'+tasa.post.descripcioncon+' - '+ tasa.post.tasa +'</p><br>';
+		});
+		setTimeout(function() {
+			scroll.refresh();
+		});
+	});
+	
+	$.getJSON(serviceURL + 'getsucursales.php?identi=' + identi + '&format=json', function(data) {
+		sucursales = data.items;
+		$.each(sucursales, function(index, sucursal) {
+			$('#DEntidad').append(' ');
+			textosucu = textosucu + '<p>'+sucursal.post.nombreban+' - '+ sucursal.post.nombrereg +'</p><br>';
 		});
 		setTimeout(function() {
 			scroll.refresh();
@@ -148,7 +163,17 @@ angular.module('starter.controllers', [])
 		//$('#employeeList li').remove();
 		entidades = data.items;
 		$.each(entidades, function(index, entidad) {
-			$('#DEntidad').append('<p>'+entidad.post.nombreban+' - '+ entidad.post.nombrereg +'<p><br>');
+			$('#DEntidad').append(
+			'<div class="card">'+
+			  '<div class="item item-divider">' +
+			    entidad.post.nombreban + " - " + entidad.post.nombrereg +
+			  '</div>' +
+			  '<div class="item item-text-wrap">' +
+			  	"Sucursales:" + textosucu + '<br>'+
+			    "Tasas:" + textotas+
+			  '</div>' +
+			'</div>'
+			);
 		});
 		setTimeout(function() {
 			scroll.refresh();
@@ -157,6 +182,66 @@ angular.module('starter.controllers', [])
 	
 
 })
+
+
+.controller('CargarTasasPA', function($scope) {
+  console.log('CargarTasasPA');
+	var serviceURL = localStorage['serviceURL'];
+	
+	var color = 1;
+	
+	total = 0;
+	$('#busi').show();
+	$.getJSON(serviceURL + 'gettodastasas.php?format=json', function(data) {
+		$('#busi').hide();
+		tasas = data.items;
+		$.each(tasas, function(index, tasa) {
+			
+			if(color%2!=0){
+			$('#tasasPA').append('<div class="row"> <div class="col col-50 coloreado">' 		
+					 +  tasa.post.nombreban  + '</div><div class="col col-25 coloreado"> '+ tasa.post.tasa +'</div><div class="col col-25 coloreado" onClick="location.href=\'#/tab/evotasaspa\'"> '+ "Ver" +  '</div></div>');
+			}else{
+			$('#tasasPA').append('<div class="row"> <div class="col col-50">' 		
+					 +  tasa.post.nombreban  + '</div><div class="col col-25"> '+ tasa.post.tasa +'</div><div class="col col-25" onClick="location.href=\'#/tab/evotasaspa\'"> '+ "Ver" +  '</div></div>');	
+			}
+			color++;
+		});
+		
+		
+		setTimeout(function(){
+			scroll.refresh();
+		});
+	});
+
+})
+
+.controller('LGraphCtrl', function($scope) { // Add a simple controller
+  $scope.graph = {};                        // Empty graph object to hold the details for this graph
+  $scope.graph.data = [                     // Add bar data, this will set your bars height in the graph
+    //Awake
+    [16, 15, 20, 12, 16, 12, 8],
+    //Asleep
+    [8, 9, 4, 12, 8, 12, 14]
+  ];
+  $scope.graph.labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];    // Add labels for the X-axis
+  $scope.graph.series = ['Awake', 'Asleep'];  // Add information for the hover/touch effect
+
+})
+
+
+.controller('BGraphCtrl', function($scope) { // Add a simple controller
+  $scope.graph = {};                        // Empty graph object to hold the details for this graph
+  $scope.graph.data = [                     // Add bar data, this will set your bars height in the graph
+    //Awake
+    [16, 15, 20, 12, 16, 12, 8],
+    //Asleep
+    [8, 9, 4, 12, 8, 12, 14]
+  ];
+  $scope.graph.labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];    // Add labels for the X-axis
+  $scope.graph.series = ['Awake', 'Asleep'];  // Add information for the hover/touch effect
+
+})
+
 
 .controller('PopupCtrl',function($scope, $ionicPopup, $timeout) {
 
