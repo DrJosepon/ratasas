@@ -216,15 +216,33 @@ angular.module('starter.controllers', [])
 })
 
 .controller('LGraphCtrl', function($scope) { // Add a simple controller
+  var serviceURL = localStorage['serviceURL'];
+  var textotasa = [];
+  var textofecha = [];
+  
+  var datos = [1,2,3,4,5];
+  
   $scope.graph = {};                        // Empty graph object to hold the details for this graph
-  $scope.graph.data = [                     // Add bar data, this will set your bars height in the graph
-    //Awake
-    [16, 15, 20, 12, 16, 12, 8],
-    //Asleep
-    [8, 9, 4, 12, 8, 12, 14]
-  ];
-  $scope.graph.labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];    // Add labels for the X-axis
-  $scope.graph.series = ['Awake', 'Asleep'];  // Add information for the hover/touch effect
+  
+  $.getJSON(serviceURL + 'gettasaspalinea.php?idban=1&idcon=1&idreg=23&idpro=1&idope=1&format=json', function(data) {
+		tasasp = data.items;
+		var cont = 0;
+		$.each(tasasp, function(index, tasap) {
+			textotasa[cont] = tasap.post.porcentajedeta;
+			textofecha[cont] = tasap.post.fechadeta;
+			localStorage['tasasp'] = tasap.post.porcentajedeta;
+			cont++;
+		});
+		setTimeout(function() {
+			scroll.refresh();
+		});
+		  $scope.graph.data = [                     // Add bar data, this will set your bars height in the graph
+		  textotasa
+		  ];
+		  $scope.graph.labels = textofecha;    // Add labels for the X-axis
+		  $scope.graph.series = ['Tasa'];  // Add information for the hover/touch effect
+	});
+
 
 })
 
