@@ -1,4 +1,4 @@
-localStorage['serviceURL'] = "http://localhost:8008/ratasasserver/";
+localStorage['serviceURL'] = "http://retasasserver.azurewebsites.net/";
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
