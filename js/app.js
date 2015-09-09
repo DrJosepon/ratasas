@@ -1,4 +1,4 @@
-localStorage['serviceURL'] = "http://retasasserver.azurewebsites.net/";
+localStorage['serviceURL'] = "http://localhost:8008/ratasasserver/";
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
@@ -116,7 +116,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','c
     views: {
       'tab-home': {
         templateUrl: 'templates/tab-simulacion.html',
-        controller: 'DashCtrl'
+        controller: 'Simulacion'
       }
     }
   })

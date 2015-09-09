@@ -247,16 +247,47 @@ angular.module('starter.controllers', [])
 })
 
 
+.controller('Simulacion', function($scope, $state, $ionicPopup, $timeout) {
+   
+
+   $scope.simula = function(simulacion) {
+  	localStorage['sregion'] = simulacion.region ;
+    localStorage['soperacion'] = simulacion.operacion; 
+    localStorage['sdescripcionpro'] = simulacion.descripcionpro ;
+    localStorage['sdescripcioncon'] = simulacion.descripcioncon ;
+    localStorage['scantidad'] = simulacion.cantidad;
+    $state.go('tab.gsimulacion');
+    
+  };
+})
+
+
 .controller('BGraphCtrl', function($scope) { // Add a simple controller
+	var serviceURL = localStorage['serviceURL'];
+	var cant = localStorage['scantidad'] ;
+	var textobanco = [];
+  var textocuota = [];
+  
   $scope.graph = {};                        // Empty graph object to hold the details for this graph
-  $scope.graph.data = [                     // Add bar data, this will set your bars height in the graph
-    //Awake
-    [16, 15, 20, 12, 16, 12, 8],
-    //Asleep
-    [8, 9, 4, 12, 8, 12, 14]
-  ];
-  $scope.graph.labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];    // Add labels for the X-axis
-  $scope.graph.series = ['Awake', 'Asleep'];  // Add information for the hover/touch effect
+  $.getJSON(serviceURL + 'getsimulacion.php?nombrereg=TACNA&nombreope=CREDITOS&descripcionpro=ACTIVO%20FIJO&descripcioncon=PRESTAMO%20ACTIVO%20FIJO%20POR%20S/.%202%20000%20A%2024%20MESES&cantidad=' + cant + '&format=json' , function(data) {
+		simulacions = data.items;
+		var cont = 0;
+		$.each(simulacions, function(index, simulacion) {
+			textobanco[cont] = simulacion.post.nombreban;
+			textocuota[cont] = simulacion.post.cuotadeta;
+			//localStorage['tasasp'] = tasap.post.porcentajedeta;
+			cont++;
+		});
+		setTimeout(function() {
+			scroll.refresh();
+		});
+		  $scope.graph.data = [                     // Add bar data, this will set your bars height in the graph
+		  textocuota
+		  ];
+		  $scope.graph.labels = textobanco;    // Add labels for the X-axis
+		  $scope.graph.series = ['Tasa'];  // Add information for the hover/touch effect
+	});
+
 
 })
 

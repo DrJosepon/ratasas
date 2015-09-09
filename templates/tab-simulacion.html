@@ -5,15 +5,21 @@ Simulacion
   <ion-content>
     <ion-list>
 	    <label class="item item-input">
-	    <input type="date" placeholder="Fecha de Inicio" ng-model="simulacion.fecha">
+	    <input type="text" placeholder="Region" ng-model="simulacion.region" value="TACNA">
 	  </label>
 	  <label class="item item-input">
-	    <input type="number" placeholder="Plazo" ng-model="simulacion.plazo">
+	    <input type="text" placeholder="Operacion" ng-model="simulacion.operacion" value="CREDITOS">
 	  </label>
 	  <label class="item item-input">
-	    <input type="number" placeholder="Monto" ng-model="simulacion.monto">
+	    <input type="text" placeholder="Descripcion Pro." ng-model="simulacion.descripcionpro" value="ACTIVO FIJO">
 	  </label>
-	<button class="button button-block button-positive" onclick="location.href='#/tab/gsimulacion';">
+	  <label class="item item-input">
+	    <input type="text" placeholder="Descripcion Con." ng-model="simulacion.descripcioncon" value="PRESTAMO ACTIVO FIJO POR S/. 2 000 A 24 MESES">
+	  </label>
+	  <label class="item item-input">
+	    <input type="number" placeholder="Monto" ng-model="simulacion.cantidad">
+	  </label>
+	<button class="button button-block button-positive" ng-click="simula(simulacion)">
               Ingresar
             </button>
             
